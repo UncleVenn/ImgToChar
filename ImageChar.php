@@ -2,7 +2,7 @@
 require 'GifFrameExtractor.php';
 require 'GIFEncoder.class.php';
 class ImageChar {
-    private $font;
+    private $font = 'simsun.ttc';
 
     private $FILES;
 
@@ -12,7 +12,6 @@ class ImageChar {
 
     function __construct($file, $echoText = false, $str = '') {
         $this->echoText = $echoText;
-        $this->font = 'simsun.ttc';
         $this->FILES = $file;
         $str != '' && $this->str = $str;
         $this->create_img();
