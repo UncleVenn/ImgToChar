@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 require_once 'ImageChar.php';
-new ImageChar('./img/img-0064St09ly1ftekauonq4g30f709tqv7.gif');
- ?>
+var_dump(new ImageChar('5486218e64da56bb02c76947049bcc6.jpg', true));
+?>
