@@ -1,8 +1,7 @@
 <?php
-require 'GifFrameExtractor.php';
-require 'GIFEncoder.class.php';
+require 'ImageCompress.php';
 class ImageChar {
-    private $font = 'simsun.ttc';
+    private $font = 'F:\phpStudy\PHPTutorial\WWW\ImgToChar\simsun.ttc';
 
     private $FILES;
 
@@ -97,7 +96,7 @@ class ImageChar {
 
     private function save($file) {
         $name = explode('.', $this->FILES);
-        $name = '.' . $name[1] . '_char.gif';
+        $name = $name[0] . '_char.gif';
         $res = fopen($name, 'a');
         fwrite($res, $file);
         fclose($res);
@@ -106,7 +105,7 @@ class ImageChar {
 
     private function gif_img($res) {
         ob_start();
-        $im = imagecreate($res['x'] * 4, $res['y'] * 4);
+        $im = imagecreate($res['x'] * 2, $res['y'] * 2);
         $white = imagecolorallocate($im, 255, 255, 255);
         $black = imagecolorallocate($im, 0, 0, 0);
         imagefill($im, 0, 0, $white);
@@ -116,10 +115,7 @@ class ImageChar {
             imagettftext($im, 15, 0, 0, $j, $black, $this->font, str_replace('|', ' ', $arr[$i]));
             $j = $j + 17;
         }
-        // $name = uniqid();
         imagegif($im);
-        // imagedestroy($im);
-        // return './img/'.$name.'.gif';
     }
 
     private function create_img() {
@@ -142,9 +138,9 @@ class ImageChar {
             $j = $j + 17;
         }
         $name = explode('.', $img);
-        imagepng($im, '.' . $name[0] . '_char.png');
+        imagepng($im, $name[0] . '_char.png');
         imagedestroy($im);
-        echo json_encode('.' . $name[0] . '_char.png');
+        echo json_encode($name[0] . '_char.png');die();
     }
 
     private function ch2arr($str) {
