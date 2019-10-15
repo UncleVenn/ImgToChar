@@ -47,7 +47,7 @@ class ImageChar {
         if (is_array($im)) {
             return $this->gif_char($im);
         } else {
-            return $this->img_char($im, 8, 5);
+            return $this->img_char($im, 8, 4);
         }
 
     }
@@ -75,7 +75,8 @@ class ImageChar {
         if ($this->echoText) {
             $output = str_replace("*", PHP_EOL, $output);
             $output = str_replace("|", ' ', $output);
-            $name = microtime(true) . '.txt';
+            $name = pathinfo($this->FILES);
+            $name = $name['filename'] . '.txt';
             file_put_contents($name, $output);
             return $name;
         }
@@ -95,8 +96,8 @@ class ImageChar {
     }
 
     private function save($file) {
-        $name = explode('.', $this->FILES);
-        $name = $name[0] . '_char.gif';
+        $name = pathinfo($this->FILES);
+        $name = $name['filename'] . '_char.gif';
         $res = fopen($name, 'a');
         fwrite($res, $file);
         fclose($res);
@@ -138,9 +139,10 @@ class ImageChar {
             $j = $j + 17;
         }
         $name = explode('.', $img);
-        imagepng($im, $name[0] . '_char.png');
+        $name = pathinfo($img);
+        imagepng($im, $name['filename'] . '_char.png');
         imagedestroy($im);
-        echo json_encode($name[0] . '_char.png');die();
+        echo json_encode($name['filename'] . '_char.png');die();
     }
 
     private function ch2arr($str) {
@@ -149,8 +151,8 @@ class ImageChar {
         for ($i = 0; $i < $length; $i++) {
             $array[] = mb_substr($str, $i, 1, 'utf-8');
         }
-
         return $array;
     }
+
 }
 ?>
